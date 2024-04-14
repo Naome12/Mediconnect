@@ -2,7 +2,7 @@ const {createLogger,combine,transports} = require("winston")
 
 const logger = createLogger({
     level: 'info',
-    format: winston.format.combine(
+    format:format.combine(
       format.timestamp(),
       format.printf(({ level, message, timestamp }) => {
         return `[${timestamp}] ${level}: ${message}`;
