@@ -1,23 +1,28 @@
 const express = require('express');
-const bodyParser = require('body-parser');
-const dotenv = require('dotenv');
-const connectDB = require('./database/connection'); 
-dotenv.config();
-
 const app = express();
-const port = process.env.PORT || 3000;
+const connectDB = require('./utils/db'); 
+const logger = require('./utils/logger'); 
+const authRoutes = require('./routes/authRoutes');
+const appointmentsRoutes = require('./routes/appointmentsRoutes');
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+// Middleware
+app.use(express.json());
 
+// Connect to MongoDB
+connectDB();
 
-connectDB()
-  .then(() => {
-    app.listen(port, () => {
-      console.log(`Server is running on port ${port}`);
-    });
-  })
-  .catch(err => {
-    console.error('Failed to connect to MongoDB:', err);
-    process.exit(1);
-  });
+//her are registered routes
+app.use('/auth', authRoutes);
+app.use('/api', appointmentsRoutes);
+
+// Error handling
+app.use((err, req, res, next) => {
+  logger.error('An error occurred:', err);
+  res.status(500).json({ error: 'Internal server error' });
+});
+
+//the server
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  logger.info(`Server is running on port ${PORT}`);
+});
