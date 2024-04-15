@@ -3,7 +3,7 @@ const app = express();
 const connectDB = require('./database/connection'); 
 const logger = require('./utils/logger');
 const authRoutes = require('./routes/authRoutes');
-const appointmentsRoutes = require('./routes/appointmentsRoutes');
+const appointmentsRoutes = require('./routes/appointmentRoutes');
 const ambulanceRoutes = require('./routes/ambulanceRoutes'); 
 const driverRoutes = require('./routes/driverRoutes'); 
 
