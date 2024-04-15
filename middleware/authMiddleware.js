@@ -16,11 +16,11 @@ const authMiddleware = async (req, res, next) => {
       throw new Error('User not found');
     }
 
-    // Attach user object to request for further use in routes
+   
     req.user = user;
     next();
   } catch (err) {
-    logger.error('Authentication failed:', err); // Log authentication errors
+    logger.error('Authentication failed:', err); 
     res.status(401).json({ error: 'Authentication failed' });
   }
 };

@@ -70,9 +70,9 @@ exports.processPayment = async (req, res) => {
       return res.status(404).json({ error: 'Payment method not found' });
     }
 
-    const { amount } = appointment; // Assuming the appointment model has an `amount` field
+    const { amount } = appointment; 
     const paymentIntent = await stripe.paymentIntents.create({
-      amount: amount * 100, // Stripe requires the amount in cents
+      amount: amount * 100, 
       currency: 'usd',
       payment_method: paymentMethod.id,
       customer: req.user.id,

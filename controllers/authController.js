@@ -1,11 +1,10 @@
 const User = require('../models/User');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
-// const logger = require('../utils/logger');
+const logger = require('../utils/logger');
 
 exports.register = async (req, res) => {
   try {
-    // Register user logic
     const { name, email, password } = req.body;
     const existingUser = await User.findOne({ email });
     if (existingUser) {
@@ -25,7 +24,6 @@ exports.register = async (req, res) => {
 
 exports.login = async (req, res) => {
   try {
-    // Login user logic
     const { email, password } = req.body;
     const user = await User.findOne({ email });
     if (!user || !(await bcrypt.compare(password, user.password))) {
